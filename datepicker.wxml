@@ -1,0 +1,132 @@
+<!--components/datepicker/datepicker.wxml-->
+<view class='month-performance month-select'>
+
+  <view class="pick-wrapper">
+    <view class="date-picker">
+      <view class="week">
+        <view class="day" wx:key="index" wx:for="{{['一', '二', '三', '四', '五', '六', '天']}}">
+          {{item}}
+        </view>
+      </view>
+      <swiper
+        current="{{currentIndex}}"
+        class="date-swiper"
+        indicator-dots="{{false}}"
+        skip-hidden-item-layout
+        duration="0"
+        bindanimationfinish="swiperChange"
+        autoplay="{{false}}"
+      >
+        <block wx:for="{{dateArr}}" wx:key="windex" wx:for-index="windex">
+          <swiper-item>
+            <view class="week">
+              <view
+                bind:tap="changeDate"
+                data-windex="{{windex}}"
+                data-dindex="{{dindex}}"
+                data-nextday="{{date.nextDay ? 1 : 0}}"
+                wx:for-index="dindex"
+                wx:key="dindex"
+                class="day {{startTime <= date.stamp && date.stamp <= endTime ? 'active' : ''}} {{date.isToday ? 'today' : ''}} {{date.nextDay ? 'next-day' : ''}}"
+                wx:for="{{item}}"
+                wx:for-item="date"
+              >
+                {{date.isToday ? '今' : date.day}}
+              </view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="icon" bind:tap="showRangeModal">
+      <image src="./month.png" class="bg-icon" />
+      <view class="month">{{year}}</view>
+      <view class="month">{{month}}月</view>
+    </view>
+  </view>
+  <view class="timer">
+    <block wx:if="{{formatStartTime ===  formatEndTime}}">{{formatStartTime}}</block>
+    <block wx:else>{{formatStartTime}}{{showRangeSpliter}}{{formatEndTime}}</block>
+  </view>
+</view>
+<view class="modal-wrapper" wx:if="{{showRange}}" bind:tap="hideRangeModal">
+  <view class="modal-content" catch:tap="stopEvent" catch:touchmove="stopEvent">
+    <view class="picker">
+      <view class="week picker-title">
+        <view
+          class="prev"
+          hover-class="icon-click"
+          data-type="-1"
+          catch:tap="changeMonth"
+        >
+          <image src="./left.png" class="icon-month" />
+        </view>
+        <view class="title">{{year}}年{{month}}月</view>
+        <view
+          class="next"
+          hover-class="icon-click"
+          data-type="1"
+          catch:tap="changeMonth"
+          wx:if="{{thisMonth !== year+ '' + month}}"
+        >
+          <image src="./right.png" class="icon-month" />
+        </view>
+        <view class="next icon-month" wx:if="{{thisMonth === year+''+month}}" />
+      </view>
+      <view class="week">
+        <view class="day month-day" wx:key="index" wx:for="{{['一', '二', '三', '四', '五', '六', '天']}}">
+          周{{item}}
+        </view>
+      </view>
+      <view class="month-swiper">
+        <block wx:for="{{monthArr}}" wx:key="windex" wx:for-index="windex">
+          <view class="swiper-item {{'item-' + windex}}">
+            <view class="week week-in-month">
+              <view
+                data-windex="{{windex}}"
+                data-dindex="{{dindex}}"
+                data-nextday="{{date.nextDay ? 1 : 0}}"
+                wx:for-index="dindex"
+                wx:key="dindex"
+                bind:touchstart="touchstart"
+                bind:touchmove="touchmove"
+                bind:touchend="touchend"
+                class="day day-in-month {{date.stamp <=  endTime && date.stamp >= startTime ? 'active' : ''}} {{date.isToday ? 'today' : ''}} {{date.nextDay ? 'next-day' : ''}} {{date.stamp === endTime ? 'end-date' : ''}}  {{date.stamp === startTime ? 'start-date' : ''}}  {{date.isMonthDay ? '' : 'not-in-month'}}"
+                wx:for="{{item}}"
+                wx:for-item="date"
+              >
+                {{date.isToday ? '今' : date.day}}
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="footer">
+        <view
+          class="btn"
+          bind:tap="setDateRange"
+          data-start="{{lastWeek}}"
+          data-end="{{thisDay}}"
+        >最近一周
+        </view>
+        <view
+          class="btn"
+          bind:tap="setDateRange"
+          data-start="{{lastDay}}"
+          data-end="{{lastDay}}"
+        >昨天
+        </view>
+        <view
+          class="btn"
+          bind:tap="setDateRange"
+          data-start="{{thisDay}}"
+          data-end="{{thisDay}}"
+        >今天
+        </view>
+        <view class="btn" bind:tap="setDateRange">确定</view>
+      </view>
+    </view>
+  </view>
+  <view class="modal-footer">{{formatStartTime}}{{showRangeSpliter}}{{formatEndTime}}</view>
+</view>
+

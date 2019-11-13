@@ -1,0 +1,45 @@
+{
+  "_from": "@humwing/mp-datepicker",
+  "_id": "@humwing/mp-datepicker@1.0.3",
+  "_inBundle": false,
+  "_integrity": "sha1-zqKfokfGOU7xsWWVVxfoG54U6w8=",
+  "_location": "/@humwing/mp-datepicker",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@humwing/mp-datepicker",
+    "name": "@humwing/mp-datepicker",
+    "escapedName": "@humwing%2fmp-datepicker",
+    "scope": "@humwing",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sharh/mp-datepicker.git"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npm.taobao.org/@humwing/mp-datepicker/download/@humwing/mp-datepicker-1.0.3.tgz",
+  "_shasum": "cea29fa247c6394ef1b165955717e81b9e14eb0f",
+  "_spec": "@humwing/mp-datepicker",
+  "_where": "D:\\npm模块",
+  "author": {
+    "name": "humwing"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "小程序日期选择器，支持日期段选择",
+  "keywords": [
+    "小程序日期选择器"
+  ],
+  "license": "MIT",
+  "main": "datepicker.js",
+  "miniprogram": ".",
+  "name": "@humwing/mp-datepicker",
+  "version": "1.0.4"
+}
